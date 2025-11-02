@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Get Location</title>
+</head>
+<body>
+  <p id="status">Requesting location...</p>
+
+  <script>
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          document.getElementById("status").textContent = 
+            `Latitude: ${lat}, Longitude: ${lon}`;
+          console.log("Location:", lat, lon);
+        },
+        (error) => {
+          document.getElementById("status").textContent = 
+            `Error: ${error.message}`;
+          console.error("Geolocation error:", error);
+        },
+        {
+          enableHighAccuracy: true,   // for "exact" location
+          timeout: 10000,
+          maximumAge: 0
+        }
+      );
+    } else {
+      document.getElementById("status").textContent = "Geolocation not supported.";
+    }
+  </script>
+</body>
+</html>
